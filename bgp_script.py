@@ -32,5 +32,14 @@ if __name__ == "__main__":
                          best_path_change_handler=dump_remote_best_path_change,
                          peer_down_handler=detect_peer_down)
 
-//yet to put the part that publishes the script
+    speaker.neighbor_add('172.16.1.175', 65003)
+    count = 0
+    while True:
+        eventlet.sleep(5)
+        prefix = '192.168.' + str(count) + '.0/24'
+        print "add a new prefix", prefix
+        speaker.prefix_add(prefix)
+        count += 1
+        print("Neighbors: ", speaker.neighbors_get())
+        print("Routes: ", speaker.rib_get())
 
